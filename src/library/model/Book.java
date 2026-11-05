@@ -1,11 +1,8 @@
 package library.model;
-//Comet 1
-
-
 
 public class Book implements Lendable {
-    private String title;
-    private String author;
+    private final String title;
+    private final String author;
     private boolean borrowed;
 
     public Book(String title, String author) {
@@ -16,36 +13,29 @@ public class Book implements Lendable {
 
     @Override
     public void borrow() {
-        if (!borrowed) {
-            borrowed = true;
-        } else {
+        if (borrowed) {
             System.out.println("This book is already borrowed.");
+            return;
         }
+        borrowed = true;
     }
 
     @Override
     public void returnItem() {
-        if (borrowed) {
-            borrowed = false;
-        } else {
+        if (!borrowed) {
             System.out.println("This book was not borrowed.");
+            return;
         }
+        borrowed = false;
+    }
+
+    // Remplace le "instanceof Book" qui était dans Library (polymorphisme)
+    @Override
+    public String getDescription() {
+        return title + " by " + author;
     }
 
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
     public boolean isBorrowed() { return borrowed; }
-
-    // Méthode volontairement complexe pour TP SonarQube
-    public void complexMethodExample(int n) {
-        for (int i = 0; i < n; i++) {
-            if (i % 2 == 0) {
-                System.out.println(i + " is even");
-            } else if (i % 3 == 0) {
-                System.out.println(i + " divisible by 3");
-            } else {
-                System.out.println(i + " something else");
-            }
-        }
-    }
 }

@@ -2,10 +2,10 @@ package library.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import library.model.*;
+import library.model.Lendable;
 
 public class Library {
-    private List<Lendable> items;
+    private final List<Lendable> items;
 
     public Library() {
         items = new ArrayList<>();
@@ -19,23 +19,18 @@ public class Library {
         items.remove(item);
     }
 
-    // Méthode volontairement incorrecte pour TP SonarQube
+    // Comportement conservé (bug volontaire du TP SonarQube) :
+    // ne tient pas compte de l'état borrowed.
     public List<Lendable> getAvailableItems() {
-        List<Lendable> availableItems = new ArrayList<>();
-        for (Lendable item : items) {
-            availableItems.add(item); // ne tient pas compte de l'état borrowed
-        }
-        return availableItems;
+        return new ArrayList<>(items);
     }
 
-    public void listAllItems() {
+    // Library renvoie des données, c'est LibraryApp qui les affiche.
+    public List<String> describeAllItems() {
+        List<String> lines = new ArrayList<>();
         for (Lendable item : items) {
-            if (item instanceof Book) {
-                Book b = (Book) item;
-                System.out.println(b.getTitle() + " by " + b.getAuthor());
-            } else {
-                System.out.println("Unknown item type");
-            }
+            lines.add(item.getDescription());
         }
+        return lines;
     }
 }
