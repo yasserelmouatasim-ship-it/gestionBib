@@ -1,0 +1,11 @@
+# Compilation
+bin/
+out/
+*.class
+# IDE
+.idea/
+*.iml
+# Outils
+ckjm-*.jar
+# Secrets : ne jamais publier le token SonarQube
+sonar-project.properties
